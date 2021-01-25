@@ -56,7 +56,8 @@ export default function Main() {
     registerListeners();
 
     const CAST_VIDEOS_URL =
-      'http://186.137.233.93:3000/';
+      // 'http://186.137.233.93:3000/';
+      'https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/f.json';
     fetch(CAST_VIDEOS_URL)
       .then(response => response.json())
       .then(data => {
@@ -69,9 +70,12 @@ export default function Main() {
             subtitle: video.subtitle,
             studio: video.studio,
             duration: video.duration,
-            mediaUrl: video.sources[0].url,
-            imageUrl: video['image-480x270'],
-            posterUrl:  video['image-780x1200'],
+            // mediaUrl: video.sources[0].url,
+            // imageUrl: video['image-480x270'],
+            // posterUrl: video['image-780x1200'],
+            mediaUrl: mp4Url + video.sources[0].url,
+            imageUrl: imagesUrl + video['image-480x270'],
+            posterUrl: imagesUrl + video['image-780x1200'],
           })),
         });
       })
