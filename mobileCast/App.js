@@ -42,7 +42,7 @@ function RenderVideos({item}) {
       key={video.title}
       onPress={() => cast(video)}
       style={styles.midiaContainer}>
-      <View style={styles.videoCard}>
+      <View>
         <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
         <Image source={playIcon}  style={styles.playImg} />
       </View>

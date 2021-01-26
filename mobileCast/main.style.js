@@ -37,9 +37,6 @@ const styles = StyleSheet.create({
     marginLeft: 120,
     marginTop: 50
   },
-  videoCard: {
-    position: 'relative',
-  },
   textMidia: {
     flex: 1,
     marginLeft: 10,
