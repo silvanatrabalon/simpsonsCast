@@ -40,8 +40,13 @@ const styles = StyleSheet.create({
   textMidia: {
     flex: 1,
     marginLeft: 10,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
+  textTitle: {
+    alignSelf: 'center',
+    fontFamily: 'simpsonfont',
+    fontSize: 20
+  }
 });
 
 export default styles;

@@ -101,7 +101,7 @@ export default function Main() {
           />
         </View>
       </SafeAreaView>
-
+      <Text style={styles.textTitle}>Les Traigo Cast</Text>
       <FlatList
         data={videos.video}
         keyExtractor={(item, index) => index.toString()}
