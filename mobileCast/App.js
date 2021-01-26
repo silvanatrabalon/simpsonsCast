@@ -92,13 +92,6 @@ export default function Main() {
       <SafeAreaView>
         <View style={styles.toolbar}>
           <CastButton style={styles.castButton} />
-
-          <Button title="Desconectar" onPress={() => GoogleCast.endSession()} />
-
-          <Button
-            title="Abrir player"
-            onPress={() => GoogleCast.launchExpandedControls()}
-          />
         </View>
       </SafeAreaView>
       <Text style={styles.textTitle}>Les Traigo Cast</Text>

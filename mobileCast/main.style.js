@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     width: 24,
     marginRight: 10,
     marginTop: 10,
-    tintColor: 'black',
+    tintColor: 'white'
   },
   midiaContainer: {
     flexDirection: 'row',
