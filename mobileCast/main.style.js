@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#fcdb00',
   },
   toolbar: {
     marginTop: 20,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     height: 40,
     position: 'absolute',
     marginLeft: 120,
-    marginTop: 50
+    marginTop: 50,
   },
   textMidia: {
     flex: 1,
@@ -46,6 +46,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'simpsonfont',
     fontSize: 20
+  },
+  preview: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+    elevation: 24,
   }
 });
 
