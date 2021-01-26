@@ -39,17 +39,21 @@ public class MainActivity extends GoogleCastActivity {
 }
 ```
 
-IMPORTANTE: Com o emulador do Android Studio, o botão de Google Cast não aparece, e não sei ao certo porque isso ocorre, mas em contrapartida, emulando a aplicação com um dispositivo físico, funciona perfeitamente. Outra forma é utilizar o [scrcpy](https://github.com/Genymobile/scrcpy), que conectando seu dispositivo físico via USB ao computador, você consegue emular seu celular.
+IMPORTANTE: Es posible que debas utilizar un dispositivo fisico para emular la aplicación y pueda detectar el botón de Google Cast. Conecta tu dispositivo mobile vía USB y activa el modo debug para desarrollador. 
 
-Independente da forma como você for emular sua aplicação, inicie sua aplicação com
+Independientemente de la manera en la que emules tu aplicación, inicia la app corriendo: 
 
 ```sh
-npx react-native run-android
+eact-native start
 ```
 
-Caso você deseje customizar seu receiver, siga os passos abaixos:
+```sh
+react-native run-android
+```
+En el caso de que desees personalizar tu receiver: 
 
-- Dentro de `android/app/src/main/AndroidManifest.xml` altere o nome `com.reactnative.googlecast.GoogleCastOptionsProvider` para `com.nativecast.CastOptionsProvider` como no exemplo abaixo
+
+- Dentro de `android/app/src/main/AndroidManifest.xml` modifcar  `com.reactnative.googlecast.GoogleCastOptionsProvider` por `com.nativecast.CastOptionsProvider` como en el siguiente ejemplo:
 
 ```xml
 <meta-data
@@ -57,7 +61,7 @@ Caso você deseje customizar seu receiver, siga os passos abaixos:
     android:value="com.nativecast.CastOptionsProvider" />
 ```
 
-- No caminho `android/app/src/main/java/com/NOME-DO-APP` crie um arquivo chamado `CastOptionsProvider.java` e adicione o trecho de código
+- En el path `android/app/src/main/java/com/NOME-DO-APP` crear un archivo llamado `CastOptionsProvider.java` y agregue el siguiente código:
 
 ```java
 package com.nativecast;
@@ -77,7 +81,7 @@ public class CastOptionsProvider extends GoogleCastOptionsProvider {
 }
 ```
 
-- Para finalizar, acesse o arquivo `strings.xml` que fica em `android/app/src/main/res/values/strings.xml` e acrescente uma nova string dentro de `<resources>` com sua app id
+- Para finalizar, ingrese al archivo `strings.xml` que se encuentra en `android/app/src/main/res/values/strings.xml` y agregue un nuevo string en `<resources>` con el ID de su app:
 
 ```xml
 <string name="app_id">E038DH47</string>
@@ -85,57 +89,13 @@ public class CastOptionsProvider extends GoogleCastOptionsProvider {
 
 </details>
 
-### Expanded Controller no Android
+### Links 
+Para información más detallada sobre problemas de compatibilidad, usabilidad, APIs, consulte el repositorio oficial : [react-native-google-cast](https://github.com/react-native-google-cast/react-native-google-cast)
 
-Por padrão, o **Expanded Controller** que é a tela que controla a reprodução das mídias, vem diferente no Android e no iOS, não em questão de design, mas sim nos botões e nas cores do título, descrição e botão de cast. No iOS, por padrão, vem os botões (legenda, voltar 30s, play/pause, avançar 30s e volume) e cores branca no cabeçalho. Já no Android, os botões são (legenda, anterior, play/pause, próximo e volume) e o cabeçalho está todo preto, dificultando a visibilidade.
+Qué necesitas para crear una Cast App: [App components](https://developers.google.com/cast/docs/developers#app_components)
 
-<p align="center">
-    <img src="/assets/android.jpg" height="500" alt="Android device by Moom"/>
-</p>
+Medios soportados por Google Cast: [Supported Media](https://developers.google.com/cast/docs/media)
 
-<details>
-<summary>Como corrigir os botões do Expanded Controller no Android</summary>
-
-- Dentro de `android/app/src/main/res/values` crie um novo arquivo chamado `arrays.xml` e insira o trecho de código abaixo
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <array name="cast_expanded_controller_control_buttons">
-        <!-- Para outros botões olhe esse link: https://developers.google.com/cast/docs/android_sender/customize_ui#choose-mini-controller-buttons -->
-        <item>@id/cast_button_type_closed_caption</item>
-        <item>@id/cast_button_type_rewind_30_seconds</item>
-        <item>@id/cast_button_type_forward_30_seconds</item>
-        <item>@id/cast_button_type_mute_toggle</item>
-    </array>
-</resources>
-```
-
-- Por fim, dentro da pasta `values`, também tem um arquivo chamado `styles.xml`. Adicione o seguinte trecho de código dentro de `<resources>`
-
-```xml
-<style name="CustomCastExpandedController" parent="CastExpandedController">
-    <item name="castControlButtons">@array/cast_expanded_controller_control_buttons</item>
-</style>
-```
-
-E no `<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">` adicione
-
-```xml
-<item name="castExpandedControllerToolbarStyle">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-<item name="castExpandedControllerStyle">@style/CustomCastExpandedController</item>
-```
-
-</details>
-
-### Links que você pode querer ler
-
-Para informações mais detalhadas sobre problemas de compatibilidade, usabilidade, APIs, consulte o repositório oficial do projeto: [react-native-google-cast](https://github.com/react-native-google-cast/react-native-google-cast)
-
-Dúvida sobre o que você precisa para criar um Cast App? [App components](https://developers.google.com/cast/docs/developers#app_components)
-
-Dúvida sobre mídias suportadas pelo Google Cast? [Supported Media](https://developers.google.com/cast/docs/media)
-
-Dúvida sobre estilos do receiver? [Styled Media Receiver](https://developers.google.com/cast/docs/styled_receiver)
+Estilos de receiver:  [Styled Media Receiver](https://developers.google.com/cast/docs/styled_receiver)
 
 [Google Cast SDK Developer Console](https://cast.google.com/publish)
