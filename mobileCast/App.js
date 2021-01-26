@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import styles from './main.style';
 import GoogleCast, {CastButton} from 'react-native-google-cast';
+import playIcon from './assets/play.png'
+
 
 function cast(video) {
   GoogleCast.getCastDevice().then(console.log());
@@ -40,7 +42,10 @@ function RenderVideos({item}) {
       key={video.title}
       onPress={() => cast(video)}
       style={styles.midiaContainer}>
-      <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
+      <View style={styles.videoCard}>
+        <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
+        <Image source={playIcon}  style={styles.playImg} />
+      </View>
       <View style={styles.textMidia}>
         <Text>{video.title}</Text>
         <Text>{video.studio}</Text>
@@ -56,7 +61,8 @@ export default function Main() {
     registerListeners();
 
     const CAST_VIDEOS_URL =
-      'http://186.137.233.93:3000/';
+      // 'http://186.137.233.93:3000/';
+      'https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/f.json';
     fetch(CAST_VIDEOS_URL)
       .then(response => response.json())
       .then(data => {
@@ -69,14 +75,17 @@ export default function Main() {
             subtitle: video.subtitle,
             studio: video.studio,
             duration: video.duration,
-            mediaUrl: video.sources[0].url,
-            imageUrl: video['image-480x270'],
-            posterUrl:  video['image-780x1200'],
+            // mediaUrl: video.sources[0].url,
+            // imageUrl: video['image-480x270'],
+            // posterUrl: video['image-780x1200'],
+            mediaUrl: mp4Url + video.sources[0].url,
+            imageUrl: imagesUrl + video['image-480x270'],
+            posterUrl: imagesUrl + video['image-780x1200'],
           })),
         });
       })
       .catch(console.error);
-  }, []);
+  }, []); 
 
   return (
     <View style={styles.container}>

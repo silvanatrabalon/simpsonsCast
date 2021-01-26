@@ -30,6 +30,16 @@ const styles = StyleSheet.create({
     width: 160,
     height: 90,
   },
+  playImg: {
+    width: 40,
+    height: 40,
+    position: 'absolute',
+    marginLeft: 120,
+    marginTop: 50
+  },
+  videoCard: {
+    position: 'relative',
+  },
   textMidia: {
     flex: 1,
     marginLeft: 10,
