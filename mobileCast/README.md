@@ -1,5 +1,5 @@
 <p align="left">
-    <img src="https://w7.pngwing.com/pngs/307/483/png-transparent-bart-simpson-youtube-marge-simpson-the-simpsons-hand-logo-computer-wallpaper.png"/>
+    <img src="https://www.clipartkey.com/mpngs/m/152-1526970_imgenes-de-los-simpsons-png.png"/>
 </p>
 
 ## Instalación de API Google Cast
@@ -8,7 +8,7 @@
 npm install react-native-google-cast
 ```
 
-### Configurações
+### Configuraciones
 
 <details>
 <summary>Android</summary>
