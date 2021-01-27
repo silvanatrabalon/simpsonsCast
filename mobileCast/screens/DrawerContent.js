@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import userImage from '../assets/user.jpeg';
+import userImage from '../assets/user.png';
 
 
 export function DrawerContent(props) {
@@ -12,23 +12,28 @@ export function DrawerContent(props) {
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
-                        <View>
-                            <Avatar.Image 
-                                source = {userImage}
-                                size = {50}
+                        <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                            <Avatar.Image
+                                source={userImage}
+                                size={50}
                             />
                         </View>
-                        <View>
-                            <Title>Diego Quintana</Title>
-                            <Caption>@mdq123456</Caption>
+                        <View style={{ marginLeft: 15, flexDirection: 'column' }}>
+                            <Title style={styles.title}>Diego Quintana</Title>
+                            <Caption style={styles.caption}>@mdq123456</Caption>
                         </View>
-
+                        <View style={styles.row}>
+                            <View style={styles.section}>
+                                <Paragraph style={[styles.paragraph, styles.caption]}>20</Paragraph>
+                                <Caption style={styles.caption}>Temporadas</Caption>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
                 <DrawerItem
-                    icon={({color, size}) => (
+                    icon={({ color, size }) => (
                         <Icon
                             name='exit-to-app'
                             color={color}
@@ -36,7 +41,7 @@ export function DrawerContent(props) {
                         />
                     )}
                     label='Sign out'
-                    onPress={()=> {}}
+                    onPress={() => { }}
                 />
 
             </Drawer.Section>
