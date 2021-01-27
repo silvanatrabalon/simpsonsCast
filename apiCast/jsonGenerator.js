@@ -1,11 +1,13 @@
 const fs = require('fs');
 const publicIp = require('public-ip');
+const internalIp = require('internal-ip');
 const util = require('util');
 
 const readdir = util.promisify(fs.readdir);
 
 module.exports = async function jsonGenerator() {
   const ip = await publicIp.v4();
+  const internal = await internalIp.v4();
   const serie = 'Simpsons'; //implementar logica para mas de 1
 
   const seasons = await readdir(`./public/${serie}`);
@@ -39,7 +41,7 @@ module.exports = async function jsonGenerator() {
   internalObj['seasons'] = seasons;
   internalObj['ip'] = ip;
   internalObj['path'] = `http://${ip}:3000/${serie}/`;
-  internalObj['pathLocal'] = `http://localhost:3000/${serie}/`;
+  internalObj['pathLocal'] = `http://${internal}:3000/${serie}/`;
   internalObj['ip'] = ip;
 
   finalObj[serie] = {internalObj, ...episodes[0]};
