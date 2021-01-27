@@ -7,14 +7,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#fcdb00',
   },
-  toolbar: {
-    marginTop: 20,
-    margin: 20,
-    height: 30,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   castButton: {
     height: 24,
     width: 24,

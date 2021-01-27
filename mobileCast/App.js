@@ -97,7 +97,6 @@ const HomeScreen = () => {
           <CastButton style={styles.castButton} />
         </View>
       </SafeAreaView>
-      <Text style={styles.textTitle}>Les Traigo Cast</Text>
       <FlatList
         data={videos.video}
         keyExtractor={(item, index) => index.toString()}
@@ -118,7 +117,8 @@ const HomeStackScreen = ({ navigation }) => (
       headerTitleAlign: 'center',
       headerTitleStyle: {
         fontFamily: 'simpsonfont'
-      }
+      },
+      headerTitle: 'Les traigo Cast'
     }}>
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerLeft: () => (
