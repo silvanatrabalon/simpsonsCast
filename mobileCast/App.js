@@ -92,11 +92,6 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView>
-        <View style={styles.toolbar}>
-          <CastButton style={styles.castButton} />
-        </View>
-      </SafeAreaView>
       <FlatList
         data={videos.video}
         keyExtractor={(item, index) => index.toString()}
@@ -126,7 +121,10 @@ const HomeStackScreen = ({ navigation }) => (
             backgroundColor='#fcdb00' color='black' onPress={() => {
             navigation.openDrawer()}}>
           </Icon.Button>
-          )
+          ),
+        headerRight: () => (
+          <CastButton style={styles.castButton} />
+        )
         }}/>
     </HomeStack.Navigator>
 );

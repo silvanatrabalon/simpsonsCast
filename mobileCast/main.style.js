@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: 24,
     marginRight: 10,
     marginTop: 10,
-    tintColor: 'white'
+    tintColor: 'black'
   },
   midiaContainer: {
     flexDirection: 'row',
