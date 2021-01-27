@@ -53,7 +53,6 @@ function RenderVideos({ item }) {
       </View>
       <View style={styles.textMidia}>
         <Text>{video.title}</Text>
-        <Text>{video.studio}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -62,29 +61,23 @@ const HomeScreen = () => {
   const [videos, setVideos] = useState([]);
   useEffect(() => {
     registerListeners();
-
-    const CAST_VIDEOS_URL =
-      // 'http://186.137.233.93:3000/';
-      'https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/f.json';
+    const CAST_VIDEOS_URL = 'http://190.19.242.3:3000/';
     fetch(CAST_VIDEOS_URL)
       .then(response => response.json())
       .then(data => {
-        const mp4Url = data.categories[0].mp4;
-        const imagesUrl = data.categories[0].images;
-
-        setVideos({
-          video: data.categories[0].videos.map(video => ({
-            title: video.title,
-            subtitle: video.subtitle,
-            studio: video.studio,
-            duration: video.duration,
-            // mediaUrl: video.sources[0].url,
-            // imageUrl: video['image-480x270'],
-            // posterUrl: video['image-780x1200'],
-            mediaUrl: mp4Url + video.sources[0].url,
-            imageUrl: imagesUrl + video['image-480x270'],
-            posterUrl: imagesUrl + video['image-780x1200'],
-          })),
+        const path = data.Simpsons.path;
+        const seasons = data.Simpsons.seasons;
+         setVideos({
+          video: seasons.map(season => (
+            data.Simpsons[season].map(episode => (
+              {
+                title: episode.title,
+                mediaUrl: path + season + '/' + episode.title + '.mp4',
+                imageUrl: path + season + '/' + episode.image,
+                posterUrl: path + season + '/' + episode.image
+              }
+            ))
+          ))[0],
         });
       })
       .catch(console.error);
