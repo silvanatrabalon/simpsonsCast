@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import styles from './main.style';
+import GoogleCast, { CastButton } from 'react-native-google-cast';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerContent } from './screens/DrawerContent';
 import {
-  Button,
   FlatList,
   Image,
   Text,
@@ -11,11 +13,10 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import styles from './main.style';
-import GoogleCast, { CastButton } from 'react-native-google-cast';
 import playIcon from './assets/play.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { DrawerContent } from './screens/DrawerContent'
+import ProfileScreen from './screens/ProfileScreen';
+import SupportScreen from './screens/SupportScreen';
 
 function cast(video) {
   GoogleCast.getCastDevice().then(console.log());
@@ -135,6 +136,8 @@ export default function Main() {
     <NavigationContainer >
       <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />} >
         <Drawer.Screen name="Home" component={HomeStackScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name="SupportScreen" component={SupportScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
