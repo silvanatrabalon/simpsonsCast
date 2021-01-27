@@ -1,4 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
   Button,
   FlatList,
@@ -9,9 +12,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './main.style';
-import GoogleCast, {CastButton} from 'react-native-google-cast';
-import playIcon from './assets/play.png'
-
+import GoogleCast, { CastButton } from 'react-native-google-cast';
+import playIcon from './assets/play.png';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { DrawerContent } from './screens/DrawerContent'
 
 function cast(video) {
   GoogleCast.getCastDevice().then(console.log());
@@ -34,7 +38,7 @@ function registerListeners() {
   });
 }
 
-function RenderVideos({item}) {
+function RenderVideos({ item }) {
   const video = item;
 
   return (
@@ -42,9 +46,9 @@ function RenderVideos({item}) {
       key={video.title}
       onPress={() => cast(video)}
       style={styles.midiaContainer}>
-      <View  style={styles.preview} >
-        <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
-        <Image source={playIcon}  style={styles.playImg} />
+      <View style={styles.preview} >
+        <Image source={{ uri: video.imageUrl }} style={styles.renderImg} />
+        <Image source={playIcon} style={styles.playImg} />
       </View>
       <View style={styles.textMidia}>
         <Text>{video.title}</Text>
@@ -53,10 +57,8 @@ function RenderVideos({item}) {
     </TouchableOpacity>
   );
 }
-
-export default function Main() {
+const HomeScreen = () => {
   const [videos, setVideos] = useState([]);
-
   useEffect(() => {
     registerListeners();
 
@@ -85,7 +87,7 @@ export default function Main() {
         });
       })
       .catch(console.error);
-  }, []); 
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -98,8 +100,42 @@ export default function Main() {
       <FlatList
         data={videos.video}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => <RenderVideos item={item} />}
+        renderItem={({ item }) => <RenderVideos item={item} />}
       />
     </View>
   );
 }
+
+
+const HomeStack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const HomeStackScreen = ({ navigation }) => (
+    <HomeStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: '#fcdb00'
+      },
+      headerTitleAlign: 'center',
+      headerTitleStyle: {
+        fontFamily: 'simpsonfont'
+      }
+    }}>
+      <HomeStack.Screen name="Home" component={HomeScreen} options={{
+        headerLeft: () => (
+          <Icon.Button name='ios-menu' size={25} 
+            backgroundColor='#fcdb00' color='black' onPress={() => {
+            navigation.openDrawer()}}>
+          </Icon.Button>
+          )
+        }}/>
+    </HomeStack.Navigator>
+);
+
+export default function Main() {
+  return (
+    <NavigationContainer >
+      <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />} >
+        <Drawer.Screen name="Home" component={HomeStackScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
