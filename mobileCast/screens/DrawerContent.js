@@ -5,9 +5,11 @@ import { Avatar, Title, Caption, Paragraph, Drawer } from 'react-native-paper';
 import styles from '../main.style';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import userImage from '../assets/user.png';
+import { AuthContext } from '../components/context';
 
 
 export function DrawerContent(props) {
+    const { signOut} = React.useContext(AuthContext);
     return (
         <View style={{ flex: 1 }, styles.container}>
             <DrawerContentScrollView {...props}>
@@ -93,7 +95,7 @@ export function DrawerContent(props) {
                         />
                     )}
                     label='Sign out'
-                    onPress={() => { }}
+                    onPress={() => {signOut()}}
                 />
 
             </Drawer.Section>
