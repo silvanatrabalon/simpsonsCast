@@ -13,6 +13,11 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import {theme} from './../../utils/theme';
+
+const {
+  colors: {primary},
+} = theme;
 
 const SignUp = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -70,7 +75,7 @@ const SignUp = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#fcdb00" barStyle="light-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
       </View>

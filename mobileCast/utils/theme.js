@@ -16,6 +16,11 @@ export const theme = {
     neutral: {
       '01': '#ffffff',
       '02': '#000000',
+      '03': '#666666',
+      '04': '#f2f2f2'
+    },
+    message: {
+      alert: '#ce0000'
     },
   },
   sizes: {

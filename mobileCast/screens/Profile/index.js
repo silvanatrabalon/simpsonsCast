@@ -3,12 +3,18 @@ import {View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import styles from './../../main.style';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {theme} from './../../utils/theme';
+
+const {
+  colors: {primary},
+} = theme;
 
 const ProfileStack = createStackNavigator();
 
 const Screen = () => {
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
       <Text>Profile Screen</Text>
     </View>
   );

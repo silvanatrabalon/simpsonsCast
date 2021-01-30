@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import {View, ActivityIndicator, StatusBar} from 'react-native';
 import styles from './main.style';
 import GoogleCast, {CastButton} from 'react-native-google-cast';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DrawerContent} from './screens/Drawer';
-import {View, ActivityIndicator} from 'react-native';
 import {FlatList, Image, Text, TouchableOpacity} from 'react-native';
 import {AuthContext} from './components/context';
 import RootStack from './screens/RootStack';
@@ -14,6 +14,11 @@ import playIcon from './assets/play.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Profile from './screens/Profile';
 import Support from './screens/Support';
+import {theme} from './utils/theme';
+
+const {
+  colors: {primary},
+} = theme;
 
 export default function Main() {
   function cast(video) {
@@ -59,7 +64,7 @@ export default function Main() {
     const [videos, setVideos] = useState([]);
     useEffect(() => {
       registerListeners();
-      const CAST_VIDEOS_URL = 'http://lestraigocast.ddns.net:3000/';
+      const CAST_VIDEOS_URL = 'http://192.168.100.200:3000/';
       fetch(CAST_VIDEOS_URL)
         .then(response => response.json())
         .then(data => {
@@ -73,7 +78,7 @@ export default function Main() {
                 imageUrl: path + season + '/' + episode.image,
                 posterUrl: path + season + '/' + episode.image,
               })),
-            )[0],
+            )[10],
           });
         })
         .catch(console.error);
@@ -81,6 +86,7 @@ export default function Main() {
 
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
         <FlatList
           data={videos.video}
           keyExtractor={(item, index) => index.toString()}

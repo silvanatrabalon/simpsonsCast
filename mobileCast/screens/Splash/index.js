@@ -14,7 +14,7 @@ const {
 const Splash = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceInDown"
@@ -31,7 +31,7 @@ const Splash = ({navigation}) => {
             <LinearGradient
               colors={[primary['01'], primary['02']]}
               style={styles.backgrodunButton}>
-              <Text style={styles.textButton}>Venga el líquido</Text>
+              <Text style={styles.textButton}>Venga el liquido</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
