@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './main.style';
-import GoogleCast, { CastButton } from 'react-native-google-cast';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerContent } from './screens/DrawerContent';
-import { View, ActivityIndicator } from 'react-native';
-import {
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import { AuthContext } from './components/context';
-import RootStackScreen from './screens/RootStackScreen';
+import GoogleCast, {CastButton} from 'react-native-google-cast';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DrawerContent} from './screens/Drawer';
+import {View, ActivityIndicator} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity} from 'react-native';
+import {AuthContext} from './components/context';
+import RootStack from './screens/RootStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import playIcon from './assets/play.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-import ProfileScreen from './screens/ProfileScreen';
-import SupportScreen from './screens/SupportScreen';
+import Profile from './screens/Profile';
+import Support from './screens/Support';
 
 export default function Main() {
   function cast(video) {
@@ -42,7 +37,7 @@ export default function Main() {
     });
   }
 
-  function RenderVideos({ item }) {
+  function RenderVideos({item}) {
     const video = item;
 
     return (
@@ -50,8 +45,8 @@ export default function Main() {
         key={video.title}
         onPress={() => cast(video)}
         style={styles.midiaContainer}>
-        <View style={styles.preview} >
-          <Image source={{ uri: video.imageUrl }} style={styles.renderImg} />
+        <View style={styles.preview}>
+          <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
           <Image source={playIcon} style={styles.playImg} />
         </View>
         <View style={styles.textMidia}>
@@ -71,16 +66,14 @@ export default function Main() {
           const path = data.Simpsons.path;
           const seasons = data.Simpsons.seasons;
           setVideos({
-            video: seasons.map(season => (
-              data.Simpsons[season].map(episode => (
-                {
-                  title: episode.title,
-                  mediaUrl: path + season + '/' + episode.title + '.mp4',
-                  imageUrl: path + season + '/' + episode.image,
-                  posterUrl: path + season + '/' + episode.image
-                }
-              ))
-            ))[0],
+            video: seasons.map(season =>
+              data.Simpsons[season].map(episode => ({
+                title: episode.title,
+                mediaUrl: path + season + '/' + episode.title + '.mp4',
+                imageUrl: path + season + '/' + episode.image,
+                posterUrl: path + season + '/' + episode.image,
+              })),
+            )[0],
           });
         })
         .catch(console.error);
@@ -91,37 +84,44 @@ export default function Main() {
         <FlatList
           data={videos.video}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <RenderVideos item={item} />}
+          renderItem={({item}) => <RenderVideos item={item} />}
         />
       </View>
     );
-  }
-  const HomeStack = createStackNavigator();
-  const Drawer = createDrawerNavigator();
-  const HomeStackScreen = ({ navigation }) => (
-    <HomeStack.Navigator screenOptions={{
-      headerStyle: {
-        backgroundColor: '#fcdb00'
-      },
-      headerTitleAlign: 'center',
-      headerTitleStyle: {
-        fontFamily: 'simpsonfont'
-      },
-      headerTitle: 'Les traigo Cast'
-    }}>
-      <HomeStack.Screen name="Home" component={HomeScreen} options={{
-        headerLeft: () => (
-          <Icon.Button name='ios-menu' size={25}
-            backgroundColor='#fcdb00' color='black' onPress={() => {
-              navigation.openDrawer()
-            }}>
-          </Icon.Button>
-        ),
-        headerRight: () => (
-          <CastButton style={styles.castButton} />
-        )
-      }} />
-    </HomeStack.Navigator>
+  };
+  const HomeStackNavigation = createStackNavigator();
+  const DrawerNavigation = createDrawerNavigator();
+  const HomeStackScreen = ({navigation}) => (
+    <HomeStackNavigation.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#fcdb00',
+        },
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          fontFamily: 'simpsonfont',
+        },
+        headerTitle: 'Les traigo Cast',
+      }}>
+      <HomeStackNavigation.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerLeft: () => (
+            <Icon.Button
+              name="ios-menu"
+              size={25}
+              backgroundColor="#fcdb00"
+              color="black"
+              onPress={() => {
+                navigation.openDrawer();
+              }}
+            />
+          ),
+          headerRight: () => <CastButton style={styles.castButton} />,
+        }}
+      />
+    </HomeStackNavigation.Navigator>
   );
 
   const initialLoginState = {
@@ -161,31 +161,36 @@ export default function Main() {
         };
     }
   };
-  const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
+  const [loginState, dispatch] = React.useReducer(
+    loginReducer,
+    initialLoginState,
+  );
 
-  const authContext = React.useMemo(() => ({
-    signIn: async (foundUser) => {
-      const userToken = String(foundUser[0].userToken);
-      const userName = foundUser[0].username;
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async foundUser => {
+        const userToken = String(foundUser[0].userToken);
+        const userName = foundUser[0].username;
 
-      try {
-        await AsyncStorage.setItem('userToken', userToken);
-      } catch (e) {
-        console.log(e);
-      }
-      dispatch({ type: 'LOGIN', id: userName, token: userToken });
-    },
-    signOut: async () => {
-      try {
-        await AsyncStorage.removeItem('userToken');
-      } catch (e) {
-        console.log(e);
-      }
-      dispatch({ type: 'LOGOUT' });
-    },
-    signUp: () => {
-    }
-  }), []);
+        try {
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (e) {
+          console.log(e);
+        }
+        dispatch({type: 'LOGIN', id: userName, token: userToken});
+      },
+      signOut: async () => {
+        try {
+          await AsyncStorage.removeItem('userToken');
+        } catch (e) {
+          console.log(e);
+        }
+        dispatch({type: 'LOGOUT'});
+      },
+      signUp: () => {},
+    }),
+    [],
+  );
 
   useEffect(() => {
     setTimeout(async () => {
@@ -196,31 +201,32 @@ export default function Main() {
       } catch (e) {
         console.log(e);
       }
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
     }, 1000);
   }, []);
 
   if (loginState.isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer >
+      <NavigationContainer>
         {loginState.userToken !== null ? (
-          <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />} >
-            <Drawer.Screen name="Home" component={HomeStackScreen} />
-            <Drawer.Screen name="Profile" component={ProfileScreen} />
-            <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-          </Drawer.Navigator>
-        )
-          :
-          <RootStackScreen />
-        }
+          <DrawerNavigation.Navigator
+            initialRouteName="Home"
+            drawerContent={props => <DrawerContent {...props} />}>
+            <DrawerNavigation.Screen name="Home" component={HomeStackScreen} />
+            <DrawerNavigation.Screen name="Profile" component={Profile} />
+            <DrawerNavigation.Screen name="Support" component={Support} />
+          </DrawerNavigation.Navigator>
+        ) : (
+          <RootStack />
+        )}
       </NavigationContainer>
     </AuthContext.Provider>
   );
-};
+}

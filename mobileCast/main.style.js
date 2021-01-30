@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#fcdb00',
   },
+  typography: {
+    fontFamily: 'simpsonfont',
+    fontSize: 16
+  },
   castButton: {
     height: 24,
     width: 24,
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     tintColor: 'black'
   },
-  midiaContainer: {
+  mediaContainer: {
     flexDirection: 'row',
     padding: 10,
   },
@@ -29,7 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 120,
     marginTop: 50,
   },
-  textMidia: {
+  textMedia: {
     flex: 1,
     marginLeft: 10,
     alignSelf: 'center'
