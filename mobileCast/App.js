@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {Home} from './screens/Seasons/Components/Home';
+import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Support from './screens/Support';
 import {AuthContext} from './components/context';
