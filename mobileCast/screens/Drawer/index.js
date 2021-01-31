@@ -5,7 +5,7 @@ import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 import { AuthContext } from './../../components/context';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import userImage from './../../assets/user.png';
+import userImage from './../../assets/user.jpg';
 import { styles } from './Drawer.style';
 import { theme } from './../../utils/theme';
 
@@ -15,7 +15,6 @@ const {
 
 export function DrawerContent(props) {
   const { signOut } = useContext(AuthContext);
-
   return (
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
@@ -25,8 +24,8 @@ export function DrawerContent(props) {
               <Avatar.Image source={userImage} size={xLarge} />
             </View>
             <View style={styles.textHeader}>
-              <Title>Diego Quintana</Title>
-              <Caption style={styles.caption}>@mdq123456</Caption>
+              <Title>{props.loginState.userName}</Title>
+              <Caption style={styles.caption}>@{props.loginState.userName}</Caption>
             </View>
           </View>
           <Drawer.Section>
