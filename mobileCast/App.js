@@ -1,23 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import {View, ActivityIndicator, StatusBar} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator, StatusBar } from 'react-native';
 import styles from './main.style';
-import GoogleCast, {CastButton} from 'react-native-google-cast';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {DrawerContent} from './screens/Drawer';
-import {FlatList, Image, Text, TouchableOpacity} from 'react-native';
-import {AuthContext} from './components/context';
+import GoogleCast, { CastButton } from 'react-native-google-cast';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerContent } from './screens/Drawer';
+import { FlatList, Image, Text, TouchableOpacity } from 'react-native';
+import { AuthContext } from './components/context';
 import RootStack from './screens/RootStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import playIcon from './assets/play.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Profile from './screens/Profile';
 import Support from './screens/Support';
-import {theme} from './utils/theme';
+import { theme } from './utils/theme';
 
 const {
-  colors: {primary},
+  colors: { primary },
 } = theme;
 
 export default function Main() {
@@ -42,7 +42,7 @@ export default function Main() {
     });
   }
 
-  function RenderVideos({item}) {
+  function RenderVideos({ item }) {
     const video = item;
 
     return (
@@ -51,7 +51,7 @@ export default function Main() {
         onPress={() => cast(video)}
         style={styles.midiaContainer}>
         <View style={styles.preview}>
-          <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
+          <Image source={{ uri: video.imageUrl }} style={styles.renderImg} />
           <Image source={playIcon} style={styles.playImg} />
         </View>
         <View style={styles.textMidia}>
@@ -64,7 +64,7 @@ export default function Main() {
     const [videos, setVideos] = useState([]);
     useEffect(() => {
       registerListeners();
-      const CAST_VIDEOS_URL = 'http://192.168.100.200:3000/';
+      const CAST_VIDEOS_URL = 'http://lestraigocast.ddns.net:3000/';
       fetch(CAST_VIDEOS_URL)
         .then(response => response.json())
         .then(data => {
@@ -90,14 +90,14 @@ export default function Main() {
         <FlatList
           data={videos.video}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => <RenderVideos item={item} />}
+          renderItem={({ item }) => <RenderVideos item={item} />}
         />
       </View>
     );
   };
   const HomeStackNavigation = createStackNavigator();
   const DrawerNavigation = createDrawerNavigator();
-  const HomeStackScreen = ({navigation}) => (
+  const HomeStackScreen = ({ navigation }) => (
     <HomeStackNavigation.Navigator
       screenOptions={{
         headerStyle: {
@@ -138,9 +138,10 @@ export default function Main() {
 
   const loginReducer = (prevState, action) => {
     switch (action.type) {
-      case 'RETRIEVE_TOKEN':
+      case 'RETRIEVE_INFO':
         return {
           ...prevState,
+          userName: action.id,
           userToken: action.token,
           isLoading: false,
         };
@@ -179,11 +180,11 @@ export default function Main() {
         const userName = foundUser[0].username;
 
         try {
-          await AsyncStorage.setItem('userToken', userToken);
+          await AsyncStorage.setItem('userName', userName);
         } catch (e) {
           console.log(e);
         }
-        dispatch({type: 'LOGIN', id: userName, token: userToken});
+        dispatch({ type: 'LOGIN', id: userName, token: userToken });
       },
       signOut: async () => {
         try {
@@ -191,47 +192,49 @@ export default function Main() {
         } catch (e) {
           console.log(e);
         }
-        dispatch({type: 'LOGOUT'});
+        dispatch({ type: 'LOGOUT' });
       },
-      signUp: () => {},
+      signUp: () => { },
+      updateProfile: () => { },
     }),
     [],
   );
 
   useEffect(() => {
     setTimeout(async () => {
-      let userToken;
-      userToken = null;
+      let userName;
+      userName = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken');
+        userName = await AsyncStorage.getItem('userName');
       } catch (e) {
         console.log(e);
       }
-      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
+      dispatch({ type: 'RETRIEVE_INFO', id: userName });
     }, 1000);
   }, []);
 
   if (loginState.isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        {loginState.userToken !== null ? (
+      <NavigationContainer >
+        {loginState.userName !== null ? (
           <DrawerNavigation.Navigator
             initialRouteName="Home"
-            drawerContent={props => <DrawerContent {...props} />}>
+            drawerContent={props => <DrawerContent {...props} loginState={loginState} />}
+          >
             <DrawerNavigation.Screen name="Home" component={HomeStackScreen} />
             <DrawerNavigation.Screen name="Profile" component={Profile} />
             <DrawerNavigation.Screen name="Support" component={Support} />
           </DrawerNavigation.Navigator>
         ) : (
-          <RootStack />
-        )}
+            <RootStack />
+          )}
       </NavigationContainer>
     </AuthContext.Provider>
   );
