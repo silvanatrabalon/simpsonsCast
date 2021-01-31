@@ -35,16 +35,21 @@ module.exports = async function jsonGenerator() {
 
   const episodes = await Promise.all(result);
 
-  const finalObj = {};
   const internalObj = {};
+  const finalObj = {};
+  finalObj[serie] = {};
 
   internalObj['seasons'] = seasons;
   internalObj['ip'] = ip;
   internalObj['path'] = `http://${ip}:3000/${serie}/`;
   internalObj['pathLocal'] = `http://${internal}:3000/${serie}/`;
   internalObj['ip'] = ip;
-
-  finalObj[serie] = {internalObj, ...episodes[0]};
+  
+  Object.assign(finalObj[serie], internalObj);
+  
+  episodes.map((seasonEpisodes) => {
+      Object.assign(finalObj[serie], seasonEpisodes);
+  });
 
   return finalObj;
 };
