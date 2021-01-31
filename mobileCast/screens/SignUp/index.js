@@ -46,14 +46,14 @@ const SignUp = ({ navigation }) => {
     }
   };
 
-  const handlePasswordChange = vavaluel => {
+  const handlePasswordChange = value => {
     setData({
       ...data,
       password: value,
     });
   };
 
-  const handleConfirmPasswordChange = vavaluel => {
+  const handleConfirmPasswordChange = value => {
     setData({
       ...data,
       confirmPassword: value,
