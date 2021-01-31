@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.nativecast",
+    package = "com.lestraigocast",
 )
 
 android_resource(
     name = "res",
-    package = "com.nativecast",
+    package = "com.lestraigocast",
     res = "src/main/res",
 )
 

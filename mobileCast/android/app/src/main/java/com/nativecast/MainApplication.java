@@ -1,4 +1,4 @@
-package com.nativecast;
+package com.lestraigocast;
 
 import android.app.Application;
 import android.content.Context;
