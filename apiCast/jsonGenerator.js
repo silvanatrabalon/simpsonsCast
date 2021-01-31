@@ -22,7 +22,7 @@ module.exports = async function jsonGenerator() {
           const episodeObj = {};
           const episodeSubStr = episode.replace('.mp4', '');
 
-          episodeObj['title'] = episode;
+          episodeObj['title'] = episodeSubStr;
           episodeObj['image'] = `image/${episodeSubStr}.png`;
 
           return episodeObj;
