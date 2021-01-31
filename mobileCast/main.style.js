@@ -53,9 +53,6 @@ const styles = StyleSheet.create({
     shadowRadius: 16.00,
     elevation: 24,
   },
-  drawerContent: {
-    flex: 1,
-  },
   userInfoSection: {
     paddingLeft: 20,
   },
@@ -81,15 +78,7 @@ const styles = StyleSheet.create({
   paragraph: {
     fontWeight: 'bold',
     marginRight: 3,
-  },
-  drawerSection: {
-    marginTop: 15,
-  },
-  bottomDrawerSection: {
-    marginBottom: 15,
-    borderTopColor: '#f4f4f4',
-    borderTopWidth: 1
-  },
+  }
 });
 
 export default styles;

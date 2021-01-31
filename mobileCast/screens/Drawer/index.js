@@ -1,39 +1,37 @@
-import React from 'react';
-import {View} from 'react-native';
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Avatar, Title, Caption, Paragraph, Drawer} from 'react-native-paper';
-import styles from './../../main.style';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
+import { AuthContext } from './../../components/context';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import userImage from './../../assets/user.png';
-import {AuthContext} from './../../components/context';
+import { styles } from './Drawer.style';
+import { theme } from './../../utils/theme';
+
+const {
+  sizes: { xLarge },
+} = theme;
 
 export function DrawerContent(props) {
-  const {signOut} = React.useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
+
   return (
-    <View style={({flex: 1}, styles.container)}>
+    <View style={styles.container}>
       <DrawerContentScrollView {...props}>
-        <View style={styles.drawerContent}>
-          <View style={styles.userInfoSection}>
-            <View style={{flexDirection: 'row', marginTop: 15}}>
-              <Avatar.Image source={userImage} size={50} />
+        <View>
+          <View style={styles.header}>
+            <View style={styles.imageHeader}>
+              <Avatar.Image source={userImage} size={xLarge} />
             </View>
-            <View
-              style={{position: 'absolute', marginTop: 15, marginLeft: 100}}>
-              <Title style={styles.title}>Diego Quintana</Title>
+            <View style={styles.textHeader}>
+              <Title>Diego Quintana</Title>
               <Caption style={styles.caption}>@mdq123456</Caption>
             </View>
-            <View style={styles.row}>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>
-                  20
-                </Paragraph>
-                <Caption style={styles.caption}>Temporadas</Caption>
-              </View>
-            </View>
           </View>
-          <Drawer.Section style={styles.drawerSection}>
+          <Drawer.Section>
             <DrawerItem
-              icon={({color, size}) => (
+              icon={({ color, size }) => (
                 <Icon name="home-outline" color={color} size={size} />
               )}
               label="Home"
@@ -42,7 +40,7 @@ export function DrawerContent(props) {
               }}
             />
             <DrawerItem
-              icon={({color, size}) => (
+              icon={({ color, size }) => (
                 <Icon name="account-check-outline" color={color} size={size} />
               )}
               label="Support"
@@ -51,7 +49,7 @@ export function DrawerContent(props) {
               }}
             />
             <DrawerItem
-              icon={({color, size}) => (
+              icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
               )}
               label="Profile"
@@ -60,26 +58,14 @@ export function DrawerContent(props) {
               }}
             />
           </Drawer.Section>
-
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              icon={({color, size}) => (
-                <Icon name="play-outline" color={color} size={size} />
-              )}
-              label="Temporadas"
-              onPress={() => {
-                props.navigation.navigate('Temporadas');
-              }}
-            />
-          </Drawer.Section>
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
-          icon={({color, size}) => (
+          icon={({ color, size }) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
-          label="Sign out"
+          label="Cerrar Sesión"
           onPress={() => {
             signOut();
           }}

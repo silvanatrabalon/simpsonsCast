@@ -7,12 +7,6 @@ const {
   sizes: {xSmall, small, medium, large, xLarge},
 } = theme;
 
-const textStyles = {
-  textAlign: 'center',
-  color: neutral['02'],
-  fontFamily: fontFamily,
-};
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

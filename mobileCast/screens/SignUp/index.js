@@ -1,4 +1,4 @@
-import React, {useState}  from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,15 +12,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import {styles} from './SignUp.style';
-import {theme} from './../../utils/theme';
+import { styles } from './SignUp.style';
+import { theme } from './../../utils/theme';
 
 const {
-  colors: {primary, neutral},
-  sizes: {small, medium},
+  colors: { primary, neutral },
+  sizes: { small, medium },
 } = theme;
 
-const SignUp = ({navigation}) => {
+const SignUp = ({ navigation }) => {
   const [data, setData] = useState({
     username: '',
     password: '',
@@ -99,7 +99,7 @@ const SignUp = ({navigation}) => {
             ) : null}
           </View>
 
-          <Text style={{marginTop: medium, ...styles.label}}>Password</Text>
+          <Text style={{ marginTop: medium, ...styles.label }}>Password</Text>
           <View style={styles.input}>
             <Feather name="lock" size={medium} />
             <TextInput
@@ -113,12 +113,12 @@ const SignUp = ({navigation}) => {
               {data.secureTextEntry ? (
                 <Feather name="eye-off" color={neutral['02']} size={small} />
               ) : (
-                <Feather name="eye" color={neutral['02']} size={small} />
-              )}
+                  <Feather name="eye" color={neutral['02']} size={small} />
+                )}
             </TouchableOpacity>
           </View>
 
-          <Text style={{marginTop: medium, ...styles.label}}>Confirmar Password</Text>
+          <Text style={{ marginTop: medium, ...styles.label }}>Confirmar Password</Text>
           <View style={styles.input}>
             <Feather name="lock" size={medium} />
             <TextInput
@@ -132,14 +132,14 @@ const SignUp = ({navigation}) => {
               {data.secureTextEntry ? (
                 <Feather name="eye-off" color={neutral['02']} size={small} />
               ) : (
-                <Feather name="eye" color={neutral['02']} size={small} />
-              )}
+                  <Feather name="eye" color={neutral['02']} size={small} />
+                )}
             </TouchableOpacity>
           </View>
           <View style={styles.buttonContent}>
-            <TouchableOpacity 
-              style={styles.button} 
-              onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => { }}>
               <LinearGradient
                 colors={[primary['01'], primary['02']]}
                 style={styles.button}>

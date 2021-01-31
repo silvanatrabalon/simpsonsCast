@@ -1,17 +1,11 @@
-import {StyleSheet} from 'react-native';
-import {theme} from './../../utils/theme';
+import { StyleSheet } from 'react-native';
+import { theme } from './../../utils/theme';
 
 const {
-  typography: {fontFamily, fontSize},
-  colors: {primary, neutral, message},
-  sizes: {xSmall, small, medium, large, xLarge},
+  typography: { fontFamily, fontSize },
+  colors: { primary, neutral, message },
+  sizes: { xSmall, small, medium, large, xLarge },
 } = theme;
-
-const textStyles = {
-  textAlign: 'center',
-  color: neutral['02'],
-  fontFamily: fontFamily,
-};
 
 export const styles = StyleSheet.create({
   container: {
