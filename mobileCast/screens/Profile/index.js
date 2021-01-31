@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import styles from './../../main.style';
 import Icon from 'react-native-vector-icons/Ionicons';

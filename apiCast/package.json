@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "internal-ip": "^6.2.0",
-    "public-ip": "^4.0.3"
+    "express": "^4.17.1"
   }
 }

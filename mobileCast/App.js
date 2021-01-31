@@ -1,140 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { View, ActivityIndicator, StatusBar } from 'react-native';
-import styles from './main.style';
-import GoogleCast, { CastButton } from 'react-native-google-cast';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerContent } from './screens/Drawer';
-import { FlatList, Image, Text, TouchableOpacity } from 'react-native';
-import { AuthContext } from './components/context';
-import RootStack from './screens/RootStack';
+import React, {useEffect} from 'react';
+import {View, ActivityIndicator} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
-import playIcon from './assets/play.png';
-import Icon from 'react-native-vector-icons/Ionicons';
+
+import {Home} from './screens/Seasons/Components/Home';
 import Profile from './screens/Profile';
 import Support from './screens/Support';
-import { theme } from './utils/theme';
+import {AuthContext} from './components/context';
+import RootStack from './screens/RootStack';
+import {DrawerContent} from './screens/Drawer';
 
-const {
-  colors: { primary },
-} = theme;
-
-export default function Main() {
-  function cast(video) {
-    GoogleCast.getCastDevice().then(console.log());
-    GoogleCast.castMedia(video);
-    GoogleCast.launchExpandedControls();
-  }
-
-  function registerListeners() {
-    const events = `
-      SESSION_STARTING SESSION_STARTED SESSION_START_FAILED SESSION_SUSPENDED
-      SESSION_RESUMING SESSION_RESUMED SESSION_ENDING SESSION_ENDED
-      MEDIA_STATUS_UPDATED MEDIA_PLAYBACK_STARTED MEDIA_PLAYBACK_ENDED MEDIA_PROGRESS_UPDATED
-      CHANNEL_CONNECTED CHANNEL_DISCONNECTED CHANNEL_MESSAGE_RECEIVED
-    `
-      .trim()
-      .split(/\s+/);
-
-    events.forEach(event => {
-      GoogleCast.EventEmitter.addListener(GoogleCast[event]);
-    });
-  }
-
-  function RenderVideos({ item }) {
-    const video = item;
-
-    return (
-      <TouchableOpacity
-        key={video.title}
-        onPress={() => cast(video)}
-        style={styles.midiaContainer}>
-        <View style={styles.preview}>
-          <Image source={{ uri: video.imageUrl }} style={styles.renderImg} />
-          <Image source={playIcon} style={styles.playImg} />
-        </View>
-        <View style={styles.textMidia}>
-          <Text>{video.title}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-  const HomeScreen = () => {
-    const [videos, setVideos] = useState([]);
-    useEffect(() => {
-      registerListeners();
-      const CAST_VIDEOS_URL = 'http://lestraigocast.ddns.net:3000/';
-      fetch(CAST_VIDEOS_URL)
-        .then(response => response.json())
-        .then(data => {
-          const path = data.Simpsons.path;
-          const seasons = data.Simpsons.seasons;
-          setVideos({
-            video: seasons.map(season =>
-              data.Simpsons[season].map(episode => ({
-                title: episode.title,
-                mediaUrl: path + season + '/' + episode.title + '.mp4',
-                imageUrl: path + season + '/' + episode.image,
-                posterUrl: path + season + '/' + episode.image,
-              })),
-            )[10],
-          });
-        })
-        .catch(console.error);
-    }, []);
-
-    return (
-      <View style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
-        <FlatList
-          data={videos.video}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <RenderVideos item={item} />}
-        />
-      </View>
-    );
-  };
-  const HomeStackNavigation = createStackNavigator();
-  const DrawerNavigation = createDrawerNavigator();
-  const HomeStackScreen = ({ navigation }) => (
-    <HomeStackNavigation.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#fcdb00',
-        },
-        headerTitleAlign: 'center',
-        headerTitleStyle: {
-          fontFamily: 'simpsonfont',
-        },
-        headerTitle: 'Les traigo Cast',
-      }}>
-      <HomeStackNavigation.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerLeft: () => (
-            <Icon.Button
-              name="ios-menu"
-              size={25}
-              backgroundColor="#fcdb00"
-              color="black"
-              onPress={() => {
-                navigation.openDrawer();
-              }}
-            />
-          ),
-          headerRight: () => <CastButton style={styles.castButton} />,
-        }}
-      />
-    </HomeStackNavigation.Navigator>
-  );
-
+export default function App() {
   const initialLoginState = {
     isLoading: true,
     userName: null,
     userToken: null,
   };
+
+  const DrawerNavigation = createDrawerNavigator();
 
   const loginReducer = (prevState, action) => {
     switch (action.type) {
@@ -220,22 +104,22 @@ export default function Main() {
       </View>
     );
   }
+
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer >
+      <NavigationContainer>
         {loginState.userName !== null ? (
           <DrawerNavigation.Navigator
             initialRouteName="Home"
-            drawerContent={props => <DrawerContent {...props} loginState={loginState} />}
-          >
-            <DrawerNavigation.Screen name="Home" component={HomeStackScreen} />
+            drawerContent={props => <DrawerContent {...props} loginState={loginState} />}>
+            <DrawerNavigation.Screen name="Home" component={Home} />
             <DrawerNavigation.Screen name="Profile" component={Profile} />
             <DrawerNavigation.Screen name="Support" component={Support} />
           </DrawerNavigation.Navigator>
         ) : (
-            <RootStack />
-          )}
+          <RootStack />
+        )}
       </NavigationContainer>
     </AuthContext.Provider>
   );
-}
+};
