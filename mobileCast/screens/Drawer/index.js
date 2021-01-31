@@ -1,20 +1,20 @@
-import React, { useContext } from 'react';
-import { View } from 'react-native';
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
-import { AuthContext } from './../../components/context';
+import React, {useContext} from 'react';
+import {View} from 'react-native';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import {Avatar, Title, Caption, Drawer} from 'react-native-paper';
+import {AuthContext} from './../../components/context';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import userImage from './../../assets/user.png';
-import { styles } from './Drawer.style';
-import { theme } from './../../utils/theme';
+import {styles} from './Drawer.style';
+import {theme} from './../../utils/theme';
 
 const {
-  sizes: { xLarge },
+  sizes: {xLarge},
 } = theme;
 
 export function DrawerContent(props) {
-  const { signOut } = useContext(AuthContext);
+  const {signOut} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -31,7 +31,7 @@ export function DrawerContent(props) {
           </View>
           <Drawer.Section>
             <DrawerItem
-              icon={({ color, size }) => (
+              icon={({color, size}) => (
                 <Icon name="home-outline" color={color} size={size} />
               )}
               label="Home"
@@ -40,7 +40,7 @@ export function DrawerContent(props) {
               }}
             />
             <DrawerItem
-              icon={({ color, size }) => (
+              icon={({color, size}) => (
                 <Icon name="account-check-outline" color={color} size={size} />
               )}
               label="Support"
@@ -49,7 +49,7 @@ export function DrawerContent(props) {
               }}
             />
             <DrawerItem
-              icon={({ color, size }) => (
+              icon={({color, size}) => (
                 <Icon name="account-outline" color={color} size={size} />
               )}
               label="Profile"
@@ -62,7 +62,7 @@ export function DrawerContent(props) {
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
-          icon={({ color, size }) => (
+          icon={({color, size}) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
           label="Cerrar Sesión"
