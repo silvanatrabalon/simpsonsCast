@@ -28,11 +28,15 @@ build/
 .gradle
 local.properties
 *.iml
+gradle
+gradlew
+gradlew.bat
 
 # node.js
 #
 npm-debug.log
 yarn-error.log
+node_modules
 
 # BUCK
 buck-out/

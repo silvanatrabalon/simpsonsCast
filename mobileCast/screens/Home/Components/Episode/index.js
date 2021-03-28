@@ -13,6 +13,13 @@ export const Episode = ({video}) => {
     GoogleCast.launchExpandedControls();
   };
 
+  function formatTitle (video) {
+    const title = video.title;
+    const formatTitle = title.substring(19).substring(4).replace(/_/g,' ');
+    const episodeNumber = title.substring(19, 21);
+    return `Episodio ${episodeNumber}: ${formatTitle}`;
+  }
+
   return (
     <TouchableOpacity
       key={video.title}
@@ -23,7 +30,7 @@ export const Episode = ({video}) => {
         <Image source={playIcon} style={styles.playImg} />
       </View>
       <View style={styles.textMedia}>
-        <Text>{video.title}</Text>
+        <Text>{formatTitle(video)}</Text>
       </View>
     </TouchableOpacity>
   );

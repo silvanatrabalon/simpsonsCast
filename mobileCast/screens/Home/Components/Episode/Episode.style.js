@@ -3,12 +3,16 @@ import {theme} from './../../../../utils/theme';
 
 const {
   sizes: {xSmall, xLarge},
+  colors: {neutral},
 } = theme;
 
 export const styles = StyleSheet.create({
   mediaContainer: {
     padding: xSmall,
     flexDirection: 'row',
+    borderBottomColor: neutral['03'],
+    borderBottomWidth: 0.5,
+    margin: 3,
   },
   renderImg: {
     width: 160,
