@@ -7,6 +7,8 @@ import {
 } from 'accordion-collapse-react-native';
 
 import {EpisodesList} from './../EpisodesList';
+import {styles} from './Season.style';
+
 
 const Season = ({title, episodes}) => {
   const PATH = 'http://lestraigocast.ddns.net:3000/';
@@ -17,11 +19,17 @@ const Season = ({title, episodes}) => {
     imageUrl: PATH + 'Simpsons/' + title + '/' + episode.image,
     posterUrl: PATH + 'Simpsons/' + title + '/' + episode.image,
   })) : [];
+
+  function formatTitle (title) {
+    const formatTitle = title.substring(1);
+    return `Temporada ${formatTitle}`;
+  }
+
   
   return (
-    <Collapse>
-      <CollapseHeader>
-        <Text>{title}</Text>
+    <Collapse style={styles.container}>
+      <CollapseHeader style = {styles.header}>
+        <Text style = {styles.textHeader}>{formatTitle(title)}</Text>
       </CollapseHeader>
       <CollapseBody>
         <EpisodesList videos={episodesArray} />

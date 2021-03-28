@@ -15,7 +15,7 @@ const Screen = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
-      <Text>Profile Screen</Text>
+      <Text>En construcción</Text>
     </View>
   );
 };

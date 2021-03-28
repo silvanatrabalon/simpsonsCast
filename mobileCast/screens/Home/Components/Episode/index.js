@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View, Image, Text} from 'react-native'
 import GoogleCast from 'react-native-google-cast';
 
-import playIcon from './../../../../assets/play.png';
+import playIcon from './../../../../assets/play2.png';
 import {styles} from './Episode.style';
 
 export const Episode = ({video}) => {
@@ -12,6 +12,13 @@ export const Episode = ({video}) => {
     GoogleCast.castMedia(videoToCast);
     GoogleCast.launchExpandedControls();
   };
+
+  function formatTitle (video) {
+    const title = video.title;
+    const formatTitle = title.substring(19).substring(4).replace(/_/g,' ');
+    const episodeNumber = title.substring(19, 21);
+    return `Episodio ${episodeNumber}: ${formatTitle}`;
+  }
 
   return (
     <TouchableOpacity
@@ -23,7 +30,7 @@ export const Episode = ({video}) => {
         <Image source={playIcon} style={styles.playImg} />
       </View>
       <View style={styles.textMedia}>
-        <Text>{video.title}</Text>
+        <Text>{formatTitle(video)}</Text>
       </View>
     </TouchableOpacity>
   );
