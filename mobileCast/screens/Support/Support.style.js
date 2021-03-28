@@ -2,10 +2,9 @@ import {StyleSheet} from 'react-native';
 import {theme} from '../../utils/theme';
 
 const {
-  sizes: {xSmall, small},
-  colors: {neutral, primary},
-  typography: {fontFamily, fontSize},
-
+  sizes: {xSmall},
+  colors: {primary},
+  typography: {fontFamily},
 } = theme;
 
 export const styles = StyleSheet.create({
@@ -19,7 +18,7 @@ export const styles = StyleSheet.create({
     height: 150,
   },
   text: {
-    margin: 10,
+    margin: xSmall,
     justifyContent: 'center',
     textAlign: 'justify'
   },

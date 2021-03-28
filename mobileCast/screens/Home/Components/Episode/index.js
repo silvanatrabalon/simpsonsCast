@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View, Image, Text} from 'react-native'
 import GoogleCast from 'react-native-google-cast';
 
-import playIcon from './../../../../assets/play2.png';
+import playIcon from './../../../../assets/play.png';
 import {styles} from './Episode.style';
 
 export const Episode = ({video}) => {
