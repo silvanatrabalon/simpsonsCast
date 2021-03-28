@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { Animated, View, Text} from 'react-native';
+import React, {useEffect} from 'react';
+import {Animated, View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {styles} from './Support.style';
+import Menus from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Icon from 'react-native-vector-icons/Ionicons';
+
+import {styles} from './Support.style';
 
 const SupportStack = createStackNavigator();
 
@@ -33,12 +35,16 @@ const Screen = () => {
       <Text style={styles.text}>
          y dar cualquier crítica constructiva, hacer consultas o simplemente hablar de Los Simpsons podes hacerlo escribiendo a: 
       </Text>
-      <Text style={styles.text}>
-        mdq123456@gmail.com
-      </Text>
-      <Text style={styles.text}>
-        silvana.trabalon@gmail.com
-      </Text>
+      <View>
+        <Text>
+          <Icon name="email" size={15} />
+          {" "}mdq123456@gmail.com
+        </Text>
+        <Text>
+          <Icon name="email" size={15} />
+          {" "}silvana.trabalon@gmail.com
+        </Text>
+      </View>
     </View>
   );
 };
@@ -59,7 +65,7 @@ const Support = ({navigation}) => (
       component={Screen}
       options={{
         headerLeft: () => (
-          <Icon.Button
+          <Menus.Button
             name="ios-menu"
             size={25}
             backgroundColor="#fcdb00"

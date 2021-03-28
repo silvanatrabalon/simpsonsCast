@@ -18,9 +18,9 @@ export const styles = StyleSheet.create({
     height: 150,
   },
   text: {
-    margin: xSmall,
+    margin: 25,
     justifyContent: 'center',
-    textAlign: 'justify'
+    textAlign: 'justify',
   },
   name: {
     fontFamily: fontFamily,
