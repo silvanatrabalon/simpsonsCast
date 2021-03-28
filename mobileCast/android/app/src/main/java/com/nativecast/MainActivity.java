@@ -1,4 +1,4 @@
-package com.nativecast;
+package com.lestraigocast;
 
 import com.facebook.react.GoogleCastActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends GoogleCastActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "nativeCast";
+    return "lestraigocast";
   }
 }
