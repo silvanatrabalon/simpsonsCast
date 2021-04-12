@@ -32,7 +32,7 @@ const Profile = ({navigation}) => (
       },
     }}>
     <ProfileStack.Screen
-      name="Support"
+      name="Profile"
       component={Screen}
       options={{
         headerLeft: () => (
