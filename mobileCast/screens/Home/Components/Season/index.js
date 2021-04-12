@@ -22,17 +22,17 @@ const Season = ({title, episodes}) => {
 
   function formatTitle (title) {
     const formatTitle = title.substring(1);
-    return `Temporada ${formatTitle}`;
+    return formatTitle;
   }
 
   
   return (
     <Collapse style={styles.container}>
       <CollapseHeader style = {styles.header}>
-        <Text style = {styles.textHeader}>{formatTitle(title)}</Text>
+        <Text style = {styles.textHeader}>Temporada {formatTitle(title)}</Text>
       </CollapseHeader>
       <CollapseBody>
-        <EpisodesList videos={episodesArray} />
+        <EpisodesList videos={episodesArray} season={formatTitle(title)} />
       </CollapseBody>
     </Collapse>
   );

@@ -14,4 +14,11 @@ export default Users = [
         password: '12345678', 
         userToken: 'token12345'
     },
+    {
+        id: 3, 
+        fullname: 'Cosme Fulanito',
+        username: 'invitado', 
+        password: 'invitado', 
+        userToken: 'token12345'
+    },
 ];
