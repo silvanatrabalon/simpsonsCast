@@ -4,9 +4,9 @@ import GoogleCast from 'react-native-google-cast';
 
 import playIcon from './../../../../assets/play.png';
 import {styles} from './Episode.style';
+import images from './../../../../model/data.json'
 
-export const Episode = ({video}) => {
-  
+export const Episode = ({video, season}) => {
   function cast(videoToCast) {
     GoogleCast.getCastDevice().then(console.log());
     GoogleCast.castMedia(videoToCast);
@@ -20,13 +20,20 @@ export const Episode = ({video}) => {
     return `Episodio ${episodeNumber}: ${formatTitle}`;
   }
 
+  function getImage (video, season) {
+    const title = video.title;
+    const episodeNumber = title.substring(19, 21);
+    const url_image = images[season][ episodeNumber -1].image;
+    return url_image;
+  }
+
   return (
     <TouchableOpacity
       key={video.title}
       onPress={() => cast(video)}
       style={styles.mediaContainer}>
       <View style={styles.preview}>
-        <Image source={{uri: video.imageUrl}} style={styles.renderImg} />
+        <Image source={{uri: getImage(video, season)}} style={styles.renderImg} />
         <Image source={playIcon} style={styles.playImg} />
       </View>
       <View style={styles.textMedia}>
