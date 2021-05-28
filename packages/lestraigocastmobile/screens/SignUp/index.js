@@ -153,11 +153,7 @@ const SignUp = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => navigation.goBack()}
-              style={{
-                borderColor: primary['01'],
-                borderWidth: 1,
-                ...styles.button,
-              }}>
+              style={styles.buttonSignUp}>
               <Text style={styles.textButton}>Entrale!</Text>
             </TouchableOpacity>
           </View>

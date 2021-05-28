@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Animated, View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Menus from 'react-native-vector-icons/Ionicons';
@@ -9,8 +9,7 @@ import {styles} from './Support.style';
 const SupportStack = createStackNavigator();
 
 const Screen = () => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const rotateValue = new Animated.Value(0);
+  const [rotateValue] = useState(new Animated.Value(0));
   const rotate = rotateValue.interpolate({
     inputRange: [0, 100],
     outputRange: ['0deg', '360deg'],

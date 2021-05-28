@@ -94,7 +94,7 @@ const SignIn = ({navigation}) => {
       return userName === item.username && password === item.password;
     });
 
-    if (data.username.length == 0 || data.password.length == 0) {
+    if (!data.username.length || !data.password.length) {
       Alert.alert(
         'Usted no aprende, verdad?',
         'Ni usuario, ni contraseña pueden estar vacios.',
@@ -103,7 +103,7 @@ const SignIn = ({navigation}) => {
       return;
     }
 
-    if (foundUser.length == 0) {
+    if (!foundUser.length) {
       Alert.alert(
         'Usuario inválido!',
         'El usuario o la contraseña es incorrecta.',
@@ -116,55 +116,55 @@ const SignIn = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle='dark-content' backgroundColor={primary['01']} />
+      <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
       <View style={styles.header}>
         <Text style={styles.textHeader}>Entrale!</Text>
       </View>
-      <Animatable.View animation='fadeInUpBig' style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.label}>Usuario</Text>
         <View style={styles.input}>
-          <FontAwesome name='user-o' size={medium} />
+          <FontAwesome name="user-o" size={medium} />
           <TextInput
-            autoCapitalize='none'
+            autoCapitalize="none"
             style={styles.textInput}
-            placeholder='consmefulanito'
+            placeholder="consmefulanito"
             placeholderTextColor={neutral['03']}
             onChangeText={value => handleUsernameChange(value)}
             onEndEditing={e => handleValidUser(e.nativeEvent.text)}
           />
           {data.isValidUserCheck ? (
-            <Animatable.View animation='bounceIn'>
-              <Feather name='check-circle' color={primary['02']} size={small} />
+            <Animatable.View animation="bounceIn">
+              <Feather name="check-circle" color={primary['02']} size={small} />
             </Animatable.View>
           ) : null}
         </View>
         {data.isValidUser ? null : (
-          <Animatable.View animation='fadeInLeft' duration={500}>
+          <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>Ingrese al menos 4 caracteres.</Text>
           </Animatable.View>
         )}
 
         <Text style={{marginTop: medium, ...styles.label}}>Password</Text>
         <View style={styles.input}>
-          <Feather name='lock' size={medium} />
+          <Feather name="lock" size={medium} />
           <TextInput
-            autoCapitalize='none'
+            autoCapitalize="none"
             style={styles.textInput}
-            placeholder='contraseña'
+            placeholder="contraseña"
             placeholderTextColor={neutral['03']}
             secureTextEntry={data.secureTextEntry ? true : false}
             onChangeText={value => handlePasswordChange(value)}
           />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
-              <Feather name='eye-off' color={neutral['02']} size={small} />
+              <Feather name="eye-off" color={neutral['02']} size={small} />
             ) : (
-              <Feather name='eye' color={neutral['02']} size={small} />
+              <Feather name="eye" color={neutral['02']} size={small} />
             )}
           </TouchableOpacity>
         </View>
         {data.isValidPassword ? null : (
-          <Animatable.View animation='fadeInLeft' duration={500}>
+          <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>Ingrese al menos 8 caracteres.</Text>
           </Animatable.View>
         )}
@@ -187,11 +187,7 @@ const SignIn = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUp')}
-            style={{
-              borderColor: primary['01'],
-              borderWidth: 1,
-              ...styles.button,
-            }}>
+            style={styles.buttonSignUp}>
             <Text style={styles.textButton}>Registrarse</Text>
           </TouchableOpacity>
         </View>

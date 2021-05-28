@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     color: neutral['02'],
     marginTop: xSmall,
     textDecorationLine: 'underline',
-    position: 'absolute'
+    position: 'absolute',
   },
   buttonContent: {
     width: '100%',
@@ -71,5 +71,15 @@ export const styles = StyleSheet.create({
     marginTop: large,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonSignUp: {
+    width: '100%',
+    height: xLarge,
+    borderWidth: 1,
+    marginTop: large,
+    borderRadius: large,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: primary['01'],
   },
 });

@@ -8,10 +8,10 @@ const {
 
 export const styles = StyleSheet.create({
   castButton: {
-    height: medium,
     width: medium,
-    marginRight: xSmall,
+    height: medium,
     marginTop: xSmall,
+    marginRight: xSmall,
     tintColor: neutral['02'],
   },
 });

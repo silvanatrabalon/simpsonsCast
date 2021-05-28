@@ -21,11 +21,9 @@ const Season = ({title, episodes}) => {
       }))
     : [];
 
-  // eslint-disable-next-line no-shadow
-  function formatTitle(title) {
-    // eslint-disable-next-line no-shadow
-    const formatTitle = title.substring(1);
-    return formatTitle;
+  function formatTitle(titleSea) {
+    const titleSeasson = titleSea.substring(1);
+    return titleSeasson;
   }
 
   return (

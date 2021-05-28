@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 import {theme} from '../../utils/theme';
 
 const {
-  sizes: {xSmall},
   colors: {primary},
   typography: {fontFamily},
 } = theme;
@@ -24,5 +23,5 @@ export const styles = StyleSheet.create({
   },
   name: {
     fontFamily: fontFamily,
-  }
+  },
 });

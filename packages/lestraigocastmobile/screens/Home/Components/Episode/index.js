@@ -18,20 +18,17 @@ export const Episode = ({video, season}) => {
     });
   }
 
-  // eslint-disable-next-line no-shadow
-  function formatTitle(video) {
-    const title = video.title;
-    // eslint-disable-next-line no-shadow
-    const formatTitle = title.substring(19).substring(4).replace(/_/g, ' ');
+  function formatTitle(videoToCast) {
+    const title = videoToCast.title;
+    const normalizedTitle = title.substring(19).substring(4).replace(/_/g, ' ');
     const episodeNumber = title.substring(19, 21);
-    return `Episodio ${episodeNumber}: ${formatTitle}`;
+    return `Episodio ${episodeNumber}: ${normalizedTitle}`;
   }
 
-  // eslint-disable-next-line no-shadow
-  function getImage(video, season) {
-    const title = video.title;
+  function getImage(videoToCast, seasson) {
+    const title = videoToCast.title;
     const episodeNumber = title.substring(19, 21);
-    const url_image = images[season][episodeNumber - 1].image;
+    const url_image = images[seasson][episodeNumber - 1].image;
     return url_image;
   }
 

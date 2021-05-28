@@ -29,8 +29,8 @@ export const HomeScreen = () => {
       <StatusBar barStyle="dark-content" backgroundColor={primary['01']} />
       <FlatList
         data={seasonsObj}
-        key={(item, index) => index.toString()}
-        keyExtractor={(item, index) => index.toString()}
+        key={(_item, index) => index.toString()}
+        keyExtractor={(_item, index) => index.toString()}
         renderItem={({item, index}) => (
           <Season title={seasons[index]} episodes={item} />
         )}

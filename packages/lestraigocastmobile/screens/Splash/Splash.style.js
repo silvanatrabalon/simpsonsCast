@@ -8,7 +8,7 @@ const {
 } = theme;
 
 const {height} = Dimensions.get('screen');
-const height_logo = height * 0.30;
+const height_logo = height * 0.3;
 const textStyles = {
   textAlign: 'center',
   color: neutral['02'],
