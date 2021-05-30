@@ -26,15 +26,18 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12.16.1'
+      - run: npm install --global yarn
+      - run: yarn bootstrap
+      - run: yarn web:release
       # Executing build with yarn
-      - name: Run bootstrap with yarn
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: bootstrap # will run `yarn bootstrap` command
-      - name: Run release with yarn
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: web:release # will run `yarn web:release` command
+      # - name: Run bootstrap with yarn
+      #   uses: borales/actions-yarn@v2.0.0
+      #   with:
+      #     cmd: bootstrap # will run `yarn bootstrap` command
+      # - name: Run release with yarn
+      #   uses: borales/actions-yarn@v2.0.0
+      #   with:
+      #     cmd: web:release # will run `yarn web:release` command
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: copy web via ssh password
