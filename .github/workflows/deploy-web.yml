@@ -29,12 +29,9 @@ jobs:
       - run: npm install --global yarn
       - run: yarn bootstrap
       - run: yarn web:release
-      
-      - name: copy build to root
-        uses: canastro/copy-file-action@master
-        with:
-          source: "packages/lestraigocastweb/build"
-          target: "web"
+      - run: cp -r ./packages/lestraigocastweb/build ./
+      - run: mv build/ web
+
       # Executing build with yarn
       # - name: Run bootstrap with yarn
       #   uses: borales/actions-yarn@v2.0.0
