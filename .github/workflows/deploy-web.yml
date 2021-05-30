@@ -48,4 +48,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "packages/lestraigocastweb/build/*"
-          target: "Desktop/lestraigocast/web"
+          target: "Desktop/lestraigocast/web/"
