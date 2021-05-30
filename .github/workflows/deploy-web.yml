@@ -23,7 +23,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
-
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.16.1'
       # Executing build with yarn
       - name: Run bootstrap with yarn
         uses: borales/actions-yarn@v2.0.0
