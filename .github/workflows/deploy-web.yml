@@ -47,5 +47,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "packages/lestraigocastweb/build/"
+          source: "packages/lestraigocastweb/build"
           target: "Desktop/lestraigocast/web"
