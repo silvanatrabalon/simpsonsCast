@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
-name: Build and Deploy Web
+name: Build and Deploy Android
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ deploy-web ]
+    branches: [ deploy-android ]
   pull_request:
-    branches: [ deploy-web ]
+    branches: [ deploy-android ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-web:
+  build-android:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -30,17 +30,19 @@ jobs:
           node-version: '12.16.1'
       - run: npm install --global yarn
       - run: yarn bootstrap
-      - run: yarn web:release
-      - run: cp -r ./packages/lestraigocastweb/build ./
-      - run: mv build/ web
+      - run: cd packages/lestraigocastmobile/android/ && ./gradlew assembleRelease
+      - run: cd ../../../
+      - run: cp -r ./packages/lestraigocastmobile/android//app/build/outputs/apk/release/app-release.apk ./
+      - run: mkdir android
+      - run: mv app-release.apk android/
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Copy build-web to production
+      - name: Copy build-android to production
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "web"
+          source: "android"
           target: "Desktop/lestraigocast/"
