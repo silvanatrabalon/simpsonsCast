@@ -32,7 +32,7 @@ jobs:
       - run: yarn bootstrap
       - run: cd packages/lestraigocastmobile/android/ && ./gradlew assembleRelease
       - run: cd ../../../
-      - run: cp -r ./packages/lestraigocastmobile/android//app/build/outputs/apk/release/app-release.apk ./
+      - run: cp -r ./packages/lestraigocastmobile/android/app/build/outputs/apk/release/app-release.apk ./
       - run: mkdir android
       - run: mv app-release.apk android/
 
