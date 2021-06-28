@@ -1,0 +1,22 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "clean:all": "yarn clean:android && yarn clean:web && yarn clean:api",
+    "clean:android": "rimraf -rf ",
+    "clean:web": "",
+    "clean:api": "",
+    "bootstrap": "npx lerna bootstrap && yarn install",
+    "android:build": "lerna --scope=lestraigocastmobile run android",
+    "android:release": "lerna --scope=lestraigocastmobile run android:release",
+    "web:release": "lerna --scope=lestraigocastweb run build",
+    "api:release": "lerna --scope=lestraigocastapi run build",
+    "start": "lerna --scope=lestraigocastmobile run start",
+    "android": "yarn android:build && yarn start",
+    "web": "lerna --scope=lestraigocastweb run start",
+    "api": "lerna --scope=lestraigocastapi run start"
+  }
+}

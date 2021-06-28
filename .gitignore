@@ -25,12 +25,12 @@ DerivedData
 #
 build/
 .idea
-.gradle
+# .gradle
 local.properties
 *.iml
-gradle
-gradlew
-gradlew.bat
+# gradle
+# gradlew
+# gradlew.bat
 
 # node.js
 #
