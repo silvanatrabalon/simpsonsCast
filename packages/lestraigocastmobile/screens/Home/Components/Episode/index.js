@@ -1,21 +1,43 @@
 import React from 'react';
 import {TouchableOpacity, View, Image, Text} from 'react-native';
-import {useRemoteMediaClient} from 'react-native-google-cast';
+import GoogleCast, {useRemoteMediaClient} from 'react-native-google-cast';
 
 import playIcon from './../../../../assets/img/play.png';
 import {styles} from './Episode.style';
 import images from './../../../../model/data.json';
 
-export const Episode = ({video, season}) => {
+export const Episode = ({video, videos, season}) => {
   const client = useRemoteMediaClient();
 
   function cast(videoToCast) {
-    client?.loadMedia({
-      mediaInfo: {
+    let queueControl = false;
+
+    let mediaQueueItems = videos
+      ? videos
+          .map(episode => {
+            queueControl = queueControl || episode.mediaUrl === videoToCast;
+            if (!queueControl) {
+              return;
+            }
+            return {
+              mediaInfo: {
+                contentUrl: episode.mediaUrl,
+              },
+            };
+          })
+          .filter(element => element)
+      : [];
+    mediaQueueItems = [...new Set(mediaQueueItems)];
+
+    console.log('mediaQueueItems: ', mediaQueueItems);
+    client
+      ?.loadMedia({
         autoplay: true,
-        contentUrl: videoToCast,
-      },
-    });
+        queueData: {
+          items: mediaQueueItems,
+        },
+      })
+      .then(() => GoogleCast.showExpandedControls());
   }
 
   function formatTitle(videoToCast) {
